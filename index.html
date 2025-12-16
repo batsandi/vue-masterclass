@@ -15,6 +15,10 @@
         font-size: 2em;
       }
 
+      label {
+        font-size: 0.75em;
+      }
+
       .can {
         color: blue;
       }
@@ -29,6 +33,10 @@
   <body>
     <div id="app">
       <div>{{message}}</div>
+      <div>
+        <label>Enter your age</label>
+        <input v-model="age"/>
+      </div>
       <div>
         Can you drive:
         <span
@@ -50,7 +58,8 @@
 
           let canDrive = computed(() => {
             console.log("Computed!!!");
-            return age.value >= 18 ? "Yes" : "No";
+            return age.value >= 18 &&
+            age.value < 70 ? "Yes" : "No";
           });
 
           setTimeout(() => {
@@ -61,6 +70,7 @@
           return {
             message,
             canDrive,
+            age
           };
         },
       };
