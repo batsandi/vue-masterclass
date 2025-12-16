@@ -21,19 +21,28 @@
   <body>
     <div id="app">
       <div>{{message}}</div>
+      <div>Can you drive: {{canDrive}}</div>
     </div>
     <script>
-      const { createApp, ref } = Vue;
+      const { createApp, ref, computed } = Vue;
       const App = {
         setup() {
-          let message = ref("Hello brat")
+          let message = ref("No one here");
+          let age = ref(null);
+
+          let canDrive = computed(() => {
+            console.log("Computed!!!");
+            return age.value >= 18 ? "Yes" : "No";
+          });
 
           setTimeout(() => {
-            message.value = "Bye choverk"
+            message.value = "Batesando";
+            age.value = 32;
           }, 5000);
 
           return {
             message,
+            canDrive,
           };
         },
       };
