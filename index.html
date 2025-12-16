@@ -35,7 +35,7 @@
       <div>{{message}}</div>
       <div>
         <label>Enter your age</label>
-        <input v-model="age"/>
+        <input v-model="age" />
       </div>
       <div>
         Can you drive:
@@ -58,8 +58,7 @@
 
           let canDrive = computed(() => {
             console.log("Computed!!!");
-            return age.value >= 18 &&
-            age.value < 70 ? "Yes" : "No";
+            return age.value >= 18 && age.value < 70 ? "Yes" : "No";
           });
 
           setTimeout(() => {

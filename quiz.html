@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3.4 Template</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/normalize.css/normalize.css"
+    />
+    <style type="text/css">
+      body {
+        font-family: monospace;
+        padding: 20px;
+        font-size: 2em;
+      }
+
+      label {
+        font-size: 0.75em;
+      }
+
+      .can {
+        color: blue;
+      }
+
+      .cant {
+        color: red;
+      }
+
+      .score-invisible {
+        display: none;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3.4.0"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <div>
+        <label>{{questionsAndAnswers[currentQuestionIndex]["question"]}}</label>
+        <input v-model="userAnswer" />
+      </div>
+      <div :class="{'score-invisible': !quizFinished}">Score: {{score}}</div>
+    </div>
+    <script>
+      const { createApp, ref, computed } = Vue;
+      const App = {
+        setup() {
+          let questionsAndAnswers = [
+            { question: "2+2=?", answer: 4 },
+            { question: "3+3=?", answer: 6 },
+            { question: "5x5=?", answer: 25 },
+          ];
+          let currentQuestionIndex = ref(0);
+          let userAnswer = ref("");
+          let score = ref(0);
+          let quizFinished = ref(false);
+
+          let userAnswerIsCorrect = computed(() => {
+            console.log(
+              `${userAnswer.value} = ${
+                questionsAndAnswers[currentQuestionIndex.value]["answer"]
+              }?`
+            );
+            let correct =
+              Number(userAnswer.value) ===
+              questionsAndAnswers[currentQuestionIndex.value]["answer"];
+            console.log(`Correct: ${correct}`);
+            return correct;
+          });
+          let atLastQuestion = computed(() => {
+            console.log(
+              `Question: ${currentQuestionIndex.value + 1} of ${
+                questionsAndAnswers.length
+              }`
+            );
+            let finished =
+              currentQuestionIndex.value === questionsAndAnswers.length - 1;
+            return finished;
+          });
+
+          const proctor = setInterval(() => {
+            if (userAnswer.value === "") {
+              console.log("Waiting for answer...");
+              return null;
+            } else {
+              console.log("Received Answer.");
+              if (userAnswerIsCorrect.value) {
+                console.log("Correct Answer!");
+                score.value += 1;
+              }
+              if (!atLastQuestion.value) {
+                console.log("Going to next question");
+                currentQuestionIndex.value += 1;
+                userAnswer.value = "";
+              } else {
+                quizFinished.value = true;
+                console.log("Quiz Complete!");
+                clearInterval(proctor);
+              }
+            }
+          }, 4000);
+
+          return {
+            questionsAndAnswers,
+            currentQuestionIndex,
+            userAnswer,
+            atLastQuestion,
+            score,
+            quizFinished,
+          };
+        },
+      };
+
+      createApp(App).mount("#app");
+    </script>
+  </body>
+</html>
