@@ -24,6 +24,12 @@
       .photo {
         position: relative;
         border: 1px solid #ccc;
+        transition: transform 0.4s, opacity 0.3s;
+      }
+
+      .photo:hover {
+        opacity: 70%;
+        transform: scale(1.05);
       }
 
       .photo img {
@@ -40,6 +46,15 @@
         bottom: 5px;
         right: 5px;
         cursor: pointer;
+        transition: transform 0.3s;
+      }
+
+      .favorite-button:hover {
+        transform: scale(2);
+      }
+
+      .favorite-button:active {
+        transform: scale(0.9) translateY(2px);
       }
 
       .favorite-button.active {
@@ -114,7 +129,7 @@
             photo.isFavorite = !photo.isFavorite;
           };
           const removePhoto = (photo) => {
-            photos.value.splice(photo.id - 1);
+            photos.value.splice(photo.id - 1, 1);
           };
 
           return {
