@@ -98,7 +98,7 @@
   </div>
 
   <script>
-    const { createApp, onMounted, onBeforeMount, ref } = Vue;
+    const { createApp, onMounted, onBeforeMount, ref, watch } = Vue;
 
     const App = {
       setup() {
@@ -118,6 +118,8 @@
             newTaskInput.value.focus()
         })
 
+        // Functions
+
         const addTask = () => {
             if (newTask.value !== "" && newPriority.value !== "") {
                 tasks.value.push(
@@ -132,6 +134,14 @@
                 newPriority.value = "";
             }
         }
+
+        // Watchers
+
+        watch(newTask, (newValue, oldValue) => {
+            console.log(
+                `${oldValue} -> ${newValue}`
+            )
+        })
 
         return {
             newTaskInput,
