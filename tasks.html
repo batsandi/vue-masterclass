@@ -106,7 +106,9 @@
         const newTaskInput = ref(null)
         const newTask = ref("")
         const newPriority = ref("")
-        const tasks = ref([])
+        const tasks = ref(
+            JSON.parse(localStorage.getItem('tasks')) ?? []
+        )
         let nextId = 0;
 
         // Lifecicle Hooks
@@ -151,6 +153,9 @@
 
         watch(tasks, () => {
             console.log("Tasks have changed!")
+            localStorage.setItem(
+                'tasks', JSON.stringify(tasks.value)
+            )
         }, {
             deep: true,
             immediate: true,
