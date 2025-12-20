@@ -78,7 +78,7 @@
     <div v-else>
       <h3>Your Tasks</h3>
       <!-- This is a list of tasks -->
-      <div v-for="task in filteredTasks" :key="task.id"
+      <div v-for="task, idx in filteredTasks" :key="task.id"
         :class="{
             task: true,
             completed: task.done,
@@ -92,7 +92,7 @@
           <span>{{ task.description }}</span>
         </div>
         <!-- Removing a task -->
-        <button class="remove-button">✖</button>
+        <button class="remove-button" @click="removeTask(idx)">✖</button>
       </div>
     </div>
   </div>
@@ -154,6 +154,10 @@
             }
         }
 
+        const removeTask = (idx) => {
+            tasks.value.splice(idx, 1)
+        }
+
         // Watchers
 
         watch(newTask, (newValue, oldValue) => {
@@ -186,6 +190,7 @@
             tasks,
             filteredTasks,
             addTask,
+            removeTask,
         }
       },
     };
