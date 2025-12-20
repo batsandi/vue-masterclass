@@ -139,9 +139,13 @@
 
         watch(newTask, (newValue, oldValue) => {
             console.log(
-                `${oldValue} -> ${newValue}`
+                `${oldValue? oldValue : "..."} -> ${newValue? newValue : "..."}`
             )
         })
+
+        watch(tasks, () => {
+            console.log("Tasks have changed!")
+        }, {deep: true})
 
         return {
             newTaskInput,
