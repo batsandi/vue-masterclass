@@ -107,6 +107,7 @@
         const newTask = ref("")
         const newPriority = ref("")
         const tasks = ref([])
+        let nextId = 0;
 
         // Lifecicle Hooks
         onBeforeMount(() => {
@@ -121,7 +122,7 @@
             if (newTask.value !== "" && newPriority.value !== "") {
                 tasks.value.push(
                     {
-                        id: tasks.value.length + 1,
+                        id: nextId++,
                         description: newTask.value,
                         priority: newPriority.value,
                         done: false
