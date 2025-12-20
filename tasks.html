@@ -98,7 +98,7 @@
   </div>
 
   <script>
-    const { createApp, onMounted, onBeforeMount, ref, watch } = Vue;
+    const { createApp, onMounted, onBeforeMount, ref, watch, watchEffect } = Vue;
 
     const App = {
       setup() {
@@ -143,9 +143,18 @@
             )
         })
 
+        watchEffect(() => {
+            console.log(
+                `Changed priority: ${newPriority.value}`
+            )
+        })
+
         watch(tasks, () => {
             console.log("Tasks have changed!")
-        }, {deep: true})
+        }, {
+            deep: true,
+            immediate: true,
+        })
 
         return {
             newTaskInput,
