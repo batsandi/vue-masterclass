@@ -55,10 +55,10 @@
 
 <body>
   <div id="app">
-    <form>
+    <form @submit.prevent="addTask">
       <!-- Adding tasks form -->
-      <input ref="newTaskInput" placeholder="Add new task">
-      <select>
+      <input ref="newTaskInput" placeholder="Add new task" v-model="newTask">
+      <select v-model="newPriority">
         <option disabled value="">Select priority</option>
         <option>High</option>
         <option>Medium</option>
@@ -104,14 +104,9 @@
       setup() {
         // Refs, variables
         const newTaskInput = ref(null)
-        const tasks = ref([
-            {
-                id: 1,
-                description: "Buy miilka",
-                priority: "High",
-                done: false,
-            }
-        ])
+        const newTask = ref("")
+        const newPriority = ref("")
+        const tasks = ref([])
 
         // Lifecicle Hooks
         onBeforeMount(() => {
@@ -122,10 +117,27 @@
             newTaskInput.value.focus()
         })
 
+        const addTask = () => {
+            if (newTask.value !== "" && newPriority.value !== "") {
+                tasks.value.push(
+                    {
+                        id: tasks.value.length + 1,
+                        description: newTask.value,
+                        priority: newPriority.value,
+                        done: false
+                    }
+                )
+                newTask.value = "";
+                newPriority.value = "";
+            }
+        }
 
         return {
             newTaskInput,
+            newTask,
+            newPriority,
             tasks,
+            addTask,
         }
       },
     };
