@@ -56,7 +56,7 @@
           let message = ref("No one here");
           let age = ref(null);
 
-          let canDrive = computed(() => {
+          const canDrive = computed(() => {
             console.log("Computed!!!");
             return age.value >= 18 && age.value < 70 ? "Yes" : "No";
           });

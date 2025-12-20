@@ -68,7 +68,7 @@
     </form>
 
     <!-- Task filtering -->
-    <input placeholder="Filter tasks...">
+    <input placeholder="Filter tasks..." v-model="searchTerm">
 
     <!-- If there no tasks -->
     <div v-if="tasks.length === 0">
@@ -78,7 +78,7 @@
     <div v-else>
       <h3>Your Tasks</h3>
       <!-- This is a list of tasks -->
-      <div v-for="task in tasks" :key="task.id"
+      <div v-for="task in filteredTasks" :key="task.id"
         :class="{
             task: true,
             completed: task.done,
@@ -98,7 +98,7 @@
   </div>
 
   <script>
-    const { createApp, onMounted, onBeforeMount, ref, watch, watchEffect } = Vue;
+    const { createApp, onMounted, onBeforeMount, ref, watch, watchEffect, computed } = Vue;
 
     const App = {
       setup() {
@@ -106,10 +106,27 @@
         const newTaskInput = ref(null)
         const newTask = ref("")
         const newPriority = ref("")
+        const searchTerm = ref("")
         const tasks = ref(
             JSON.parse(localStorage.getItem('tasks')) ?? []
         )
         let nextId = 0;
+
+        // Computed
+        const filteredTasks = computed(() => {
+            console.log(
+                `Searching for ${searchTerm.value.toLowerCase()}...`
+            )
+            if (!searchTerm.value) {
+                return tasks.value
+            }
+            return tasks.value.filter(task => {
+                console.log(
+                    `... in ${task.description.toLowerCase()}`
+                )
+                return task.description.toLowerCase().includes(searchTerm.value.toLowerCase())
+            })
+        })
 
         // Lifecicle Hooks
         onBeforeMount(() => {
@@ -165,7 +182,9 @@
             newTaskInput,
             newTask,
             newPriority,
+            searchTerm,
             tasks,
+            filteredTasks,
             addTask,
         }
       },
