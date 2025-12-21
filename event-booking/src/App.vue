@@ -2,7 +2,7 @@
 
 <template>
   <main>
-    Hello Brother
+    <p class="text-red-200 hover:text-yellow-200">Ti si Bate Sando!</p>
   </main>
 </template>
 
