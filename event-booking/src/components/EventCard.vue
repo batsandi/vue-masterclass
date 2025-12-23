@@ -3,6 +3,11 @@
     <h3 class="p-3 font-medium border-b border-cyan-400">{{ title }}</h3>
     <p class="p-3 text-xs font-mono border-b border-cyan-400">{{ date }}</p>
     <p class="p-3 text-xs">{{ description }}</p>
+    <section class="flex justify-end p-4">
+      <button class="border border-green-400 px-3 py-1 rounded-full hover:scale-110 hover:bg-green-600 transition" @click="$emit('register', title)">
+        Register
+      </button>
+    </section>
   </div>
 </template>
 
@@ -12,4 +17,7 @@ defineProps({
     date: String,
     description: String,
 })
+
+defineEmits(["register"])
+
 </script>
