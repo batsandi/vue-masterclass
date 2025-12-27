@@ -1,9 +1,9 @@
 <template>
-  <BaseCard>
+  <SectionedCard>
     You are booked
-  </BaseCard>
+  </SectionedCard>
 </template>
 
 <script setup>
-import BaseCard from '@/components/BaseCard.vue';
+import SectionedCard from '@/components/SectionedCard.vue';
 </script>

@@ -1,19 +1,29 @@
 <template>
-  <BaseCard>
-    <h3 class="pb-3 font-medium border-b border-cyan-400">{{ title }}</h3>
-    <p class="py-3 text-xs font-mono border-b border-cyan-400">{{ date }}</p>
-    <p class="py-3 text-xs">{{ description }}</p>
-    <section class="flex justify-end">
-      <MyButton @click="$emit('register')">
-        Sign up
-      </MyButton>
-    </section>
-  </BaseCard>
+  <SectionedCard>
+    <template #header>
+      {{ title }}
+    </template>
+    <template #default>
+      {{ date }}
+    </template>
+    <template #footer>
+      <div class="space-y-4">
+        <p>
+          {{ description }}
+        </p>
+        <div class="flex justify-end">
+        <MyButton @click="$emit('register')">
+          Sign up
+        </MyButton>
+        </div>
+      </div>
+    </template>
+  </SectionedCard>
 </template>
 
 <script setup>
 import MyButton from '@/components/MyButton.vue'
-import BaseCard from '@/components/BaseCard.vue';
+import SectionedCard from '@/components/SectionedCard.vue';
 
 defineProps({
     title: String,
