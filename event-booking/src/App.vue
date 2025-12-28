@@ -3,8 +3,13 @@
     <h1 class="text-4xl text-blue-100">Event Bookings</h1>
     <h2 class="text-2xl text-blue-100">All Events</h2>
     <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <EventCard v-for="i in 9" :key="i"
-      title="Gokceada Freestyle Cup" date="2026-07-15" description="watch Moni win!" @register="title => console.log('Registered!')"/>
+      <EventCard v-for="event in events"
+      :key="event.id"
+      :title="event.title"
+      :date="event.date"
+      :description="event.description"
+      @register="title => console.log('Registered!')"
+      />
     </section>
     <h2 class="text-2xl text-blue-100 font-medium">Your Bookings</h2>
     <section class="grid grid-cols-1 gap-8">
