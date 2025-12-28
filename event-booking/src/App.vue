@@ -16,6 +16,17 @@
 <script setup>
 import EventCard from '@/components/EventCard.vue'
 import BookingCard from '@/components/BookingCard.vue'
+import { ref, onMounted } from 'vue'
+
+const events = ref([])
+
+const fetchEvents = async () => {
+  const response = await fetch('http://localhost:3001/events')
+  events.value = await response.json()
+  console.log(events.value)
+}
+
+onMounted(() => {fetchEvents()})
 
 </script>
 
