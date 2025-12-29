@@ -18,7 +18,15 @@
     </section>
     <h2 class="text-2xl text-blue-100 font-medium">Your Bookings</h2>
     <section class="grid grid-cols-1 gap-8">
-      <BookingCard v-for="i in 3" :key="i" />
+      <template v-if="loadingBookings === false">
+        <BookingCard v-for="booking in bookings"
+        :key="booking.id"
+        :title="booking.eventTitle"
+        />
+      </template>
+      <template v-else>
+        <LoadingBookingCard v-for="i in 4" :key="i"/>
+      </template>
     </section>
   </main>
 </template>
@@ -26,12 +34,15 @@
 <script setup>
 import EventCard from '@/components/EventCard.vue'
 import LoadingEventCard from '@/components/LoadingEventCard.vue'
-
 import BookingCard from '@/components/BookingCard.vue'
+import LoadingBookingCard from '@/components/LoadingBookingCard.vue'
 import { ref, onMounted } from 'vue'
 
 const events = ref([])
 const loadingEvents = ref(false)
+const bookings = ref([])
+const loadingBookings = ref(false)
+
 
 const fetchEvents = async () => {
   try{
@@ -45,7 +56,22 @@ const fetchEvents = async () => {
   }
 }
 
-onMounted(() => {fetchEvents()})
+const fetchBookings = async () => {
+  try{
+    loadingBookings.value = true;
+      const response = await fetch('http://localhost:3001/bookings')
+    bookings.value = await response.json()
+  }
+  finally {
+    loadingBookings.value = false;
+  }
+}
+
+onMounted(() => {
+    fetchEvents();
+    fetchBookings();
+  }
+)
 
 const handleRegistration = async (event) => {
 

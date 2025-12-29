@@ -36,6 +36,20 @@
       "eventId": "2",
       "eventTitle": "Vue Conference 2023",
       "status": "confirmed"
+    },
+    {
+      "id": "1767001105920",
+      "user": 1,
+      "eventId": "2",
+      "eventTitle": "Vue Conference 2023",
+      "status": "confirmed"
+    },
+    {
+      "id": "1767001231702",
+      "user": 1,
+      "eventId": "4",
+      "eventTitle": "Rust Conference 2021",
+      "status": "confirmed"
     }
   ]
 }

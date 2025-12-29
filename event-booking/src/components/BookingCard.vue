@@ -1,8 +1,8 @@
 <template>
   <SectionedCard>
-    <div class="flex justify-between">
+    <div class="flex justify-between items-center">
       <div>
-        You are booked
+        {{ title }}
       </div>
       <MyButton variant="danger">
         Cancel
@@ -14,4 +14,9 @@
 <script setup>
 import SectionedCard from '@/components/SectionedCard.vue'
 import MyButton from '@/components/MyButton.vue'
+
+defineProps({
+  title: String,
+})
+
 </script>
