@@ -25,6 +25,7 @@
           :key="booking.id"
           :title="booking.eventTitle"
           :status="booking.status"
+          @cancel="handleCancellation(booking)"
         />
       </template>
       <template v-else>
@@ -74,11 +75,11 @@ onMounted(() => {
 
 const handleRegistration = async (event) => {
   // check if booking already exists
-  if(bookings.value.some(b => b.eventId == event.id)) {
+  if (bookings.value.some((b) => b.eventId == event.id)) {
     alert('Already booked for this event!')
-    return;
+    return
   }
-  
+
   // Prepare new booking and optimistically add to UI
   const newBooking = {
     id: Date.now().toString(),
@@ -113,6 +114,34 @@ const handleRegistration = async (event) => {
     console.error(`Failed to book for event: ${e}`)
     if (idx !== -1) {
       bookings.value.splice(idx, 1)
+    }
+  }
+}
+
+const handleCancellation = async (booking) => {
+  console.log('Cancelling: ')
+  console.log(booking)
+  const idx = bookings.value.findIndex((b) => b.id === booking.id)
+  // Remove booking from UI optimistically
+  bookings.value.splice(idx, 1)
+
+  try {
+    const response = await fetch(`http://localhost:3001/bookings/${booking.id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    // Update the booking ref with the new booking
+    if (response.ok) {
+      console.log(`Cancelled booking ${booking.id}`)
+    } else {
+      throw new Error(`Booking Cancel failed bad error msg`)
+    }
+  } catch (e) {
+    // Return to UI on failure/error
+    console.error(`Failed to cancel booking: ${e}`)
+    if (idx !== -1) {
+      bookings.value.push(booking)
     }
   }
 }
