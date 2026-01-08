@@ -1,12 +1,15 @@
 <template>
   <SectionedCard>
     <div class="flex justify-between items-center">
-      <div>
-        {{ title }}
+      <div class="flex space-x-2">
+        <div>
+          {{ title }}
+        </div>
+        <div>
+          {{ status }}
+        </div>
       </div>
-      <MyButton variant="danger">
-        Cancel
-      </MyButton>
+      <MyButton variant="danger"> Cancel </MyButton>
     </div>
   </SectionedCard>
 </template>
@@ -17,6 +20,6 @@ import MyButton from '@/components/MyButton.vue'
 
 defineProps({
   title: String,
+  status: String
 })
-
 </script>
