@@ -5,7 +5,7 @@
         <div>
           {{ title }}
         </div>
-        <component :is="icon"></component>
+        <component :is="icon" :class="{'animate-spin': pending}"></component>
       </div>
       <MyButton variant="danger" @click="$emit('cancel')"> Cancel </MyButton>
     </div>
@@ -25,5 +25,6 @@ const props = defineProps({
 
 defineEmits(['cancel'])
 
-const icon = computed(() => props.status === 'pending' ? LoaderCircle : Check)
+const pending = computed(() => props.status === 'pending')
+const icon = computed(() => pending.value ? LoaderCircle : Check)
 </script>
