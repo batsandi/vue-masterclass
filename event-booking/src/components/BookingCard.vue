@@ -5,9 +5,7 @@
         <div>
           {{ title }}
         </div>
-        <div>
-          {{ status }}
-        </div>
+        <component :is="icon"></component>
       </div>
       <MyButton variant="danger" @click="$emit('cancel')"> Cancel </MyButton>
     </div>
@@ -15,14 +13,17 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import SectionedCard from '@/components/SectionedCard.vue'
 import MyButton from '@/components/MyButton.vue'
+import { LoaderCircle, Check } from 'lucide-vue-next'
 
-defineProps({
+const props = defineProps({
   title: String,
-  status: String
+  status: String,
 })
 
-defineEmits(["cancel"])
+defineEmits(['cancel'])
 
+const icon = computed(() => props.status === 'pending' ? LoaderCircle : Check)
 </script>
