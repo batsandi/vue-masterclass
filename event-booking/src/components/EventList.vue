@@ -2,12 +2,9 @@
   <div>
     <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <template v-if="error">
-        <SectionedCard class="col-span-full">
-          <div class="flex flex-col space-y-4 justify-around items-center">
-            <div class="text-red-600">The application encountered an error loading events.</div>
-            <MyButton variant="danger" @click="fetchEvents"> Retry </MyButton>
-          </div>
-        </SectionedCard>
+        <ErrorCard :retry="fetchEvents">
+          <div class="text-red-600">The application encountered an error loading events.</div>
+        </ErrorCard>
       </template>
       <template v-else>
         <template v-if="loading === false">
@@ -18,7 +15,7 @@
               :title="event.title"
               :date="event.date"
               :description="event.description"
-              @register="$emit('register', event)"
+              @register="handleRegistration(event)"
             />
           </template>
           <template v-else>
@@ -37,10 +34,10 @@
 import { ref, onMounted } from 'vue'
 import EventCard from '@/components/EventCard.vue'
 import LoadingEventCard from '@/components/LoadingEventCard.vue'
-import SectionedCard from '@/components/SectionedCard.vue'
-import MyButton from '@/components/MyButton.vue'
+import useBookings from '@/composables/useBookings'
+import ErrorCard from './ErrorCard.vue';
 
-defineEmits(['register'])
+const { handleRegistration } = useBookings();
 
 const events = ref([])
 const loading = ref(false)
