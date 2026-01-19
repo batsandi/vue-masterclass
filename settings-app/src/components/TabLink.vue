@@ -10,4 +10,9 @@ defineProps<{
     label: string
   }
 }>()
+
+defineEmits<{
+  click: []
+}>()
+
 </script>
