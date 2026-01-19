@@ -1,11 +1,5 @@
-<script setup lang="ts"></script>
-
 <template>
-  <h1 class="text-yellow-500 ">You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <h1 class="p-12 text-stone-300 text-2xl">You did it!</h1>
 </template>
 
-<style scoped></style>
+<script setup lang="ts"></script>
