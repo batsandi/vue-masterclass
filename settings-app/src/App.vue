@@ -1,20 +1,22 @@
 <template>
   <main class="max-w-2xl mx-auto p-4">
-    <nav class="font-medium text-center p-2 text-gray-200 border-b border-gray-800">
+    <nav class="font-medium text-center text-gray-200 p-2 border-b border-gray-800">
       <ul class="flex gap-4">
         <li v-for="tab in tabs" :key="tab.key">
           <TabLink 
             :currentTab="currentTab" 
             :tab="tab" 
             @click="currentTab = tab.key"
-            class="text-2xl"
+            class="text-2xl text-gray-200"
           />
         </li>
       </ul>
     </nav>
-    <Transition mode="out-in" name="fade">
-      <component :is="currentTabComponent" />
-    </Transition>
+    <FadeTransition>
+      <component
+      :is="currentTabComponent"
+      :class="{'text-gray-200 text-4xl flex justify-center': true}" />
+    </FadeTransition>
   </main>
 </template>
 
@@ -25,6 +27,7 @@ import TabLink from "@/components/TabLink.vue"
 import GeneralSettings from "@/components/GeneralSettings.vue"
 import NotificationsSettings from "@/components/NotificationsSettings.vue"
 import PrivacySettings from "@/components/PrivacySettings.vue"
+import FadeTransition from "@/components/FadeTransition.vue"
 
 
 const tabs: Tab[] = [
@@ -49,16 +52,3 @@ const currentTab = ref<TabKey>('General')
 const currentTabComponent = computed(() => tabs.find((tab) => tab.key === currentTab.value)?.component)
 
 </script>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.2s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-  scale: 125%
-}
-</style>

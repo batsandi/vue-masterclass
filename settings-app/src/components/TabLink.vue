@@ -1,5 +1,5 @@
 <template>
-  <button @click="$emit('click')" :class="{'border-b-2 border-blue-600 ': true, 'text-blue-400': isActive, 'border-transparent': !isActive}">
+  <button @click="$emit('click')" :class="[$attrs.class, {'border-b-2 border-blue-600 ': true, 'text-blue-400': isActive, 'border-transparent': !isActive}]">
     {{ tab.label }}
   </button>
 </template>
@@ -20,4 +20,10 @@ defineEmits<{
 const isActive = computed(() => props.currentTab === props.tab.key)
 
 
+</script>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false
+}
 </script>
