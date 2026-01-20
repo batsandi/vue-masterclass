@@ -1,7 +1,7 @@
 <template>
   <main class="max-w-2xl mx-auto p-4">
     <nav class="font-medium text-center text-gray-200 p-2 border-b border-gray-800">
-      <ul class="flex gap-4">
+      <ul class="flex gap-4 flex-wrap">
         <li v-for="tab in tabs" :key="tab.key">
           <TabLink 
             :currentTab="currentTab" 
@@ -15,7 +15,7 @@
     <FadeTransition>
       <component
       :is="currentTabComponent"
-      :class="{'text-gray-200 text-4xl flex justify-center': true}" />
+      :class="{'text-gray-200': true}" />
     </FadeTransition>
   </main>
 </template>
