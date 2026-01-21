@@ -1,4 +1,7 @@
-import { ref } from "vue"
+import GeneralSettings from "@/components/GeneralSettings.vue"
+import NotificationsSettings from "@/components/NotificationsSettings.vue"
+import PrivacySettings from "@/components/PrivacySettings.vue"
+import { ref, watch } from "vue"
 
 interface GeneralSettings {
     username: string
@@ -18,25 +21,90 @@ interface PrivacySettings {
     searchEngineIndexing: boolean
 }
 
+interface SettingsMap {
+    general: GeneralSettings
+    notifications: NotificationsSettings
+    privacy: PrivacySettings
+}
+
+type SettingsKey = keyof SettingsMap
+
 type Visibility = 'public' | 'private'
 
-const general = ref<GeneralSettings>({
-    username: '',
-    email: '',
-    about: '',
-    gender: 'female',
-    country: 'Kazakhstan',
-})
+const init = <T extends SettingsKey>(key: T, defaults: SettingsMap[T]) => {
+    const stored = localStorage. getItem(key)
+    return stored !== null ? JSON.parse(stored) : defaults
+}
 
-const notifications = ref<NotificationsSettings>({
-    email: false,
-    sms: false,
-})
+const watcher =
+<T extends SettingsKey>(key: T) =>
+(value: SettingsMap[T]) => {
+    localStorage.setItem(key, JSON.stringify(value))
+}
 
-const privacy = ref<PrivacySettings>({
-    visibility: 'public',
-    searchEngineIndexing: false
-})
+const general = ref<GeneralSettings>(
+    init(
+        'general',
+        {
+            username: '',
+            email: '',
+            about: '',
+            gender: 'female',
+            country: 'Kazakhstan',
+        }
+    )
+)
+
+const notifications = ref<NotificationsSettings>(
+    init(
+        'notifications',
+        {
+            email: false,
+            sms: false,
+        }
+    )
+)
+
+
+const privacy = ref<PrivacySettings>(
+    init(
+        'privacy',
+        {
+            visibility: 'public',
+            searchEngineIndexing: false,
+        }
+    )
+)
+
+watch(
+    general,
+    watcher(
+        "general"
+    ),
+    {
+        deep: true
+    }
+)
+
+watch(
+    notifications,
+    watcher(
+        "notifications"
+    ),
+    {
+        deep: true
+    }
+)
+
+watch(
+    privacy,
+    watcher(
+        "privacy"
+    ),
+    {
+        deep: true
+    }
+)
 
 export function useSettings() {
     return {
