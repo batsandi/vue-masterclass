@@ -13,9 +13,12 @@
       </ul>
     </nav>
     <FadeTransition>
-      <component
-      :is="currentTabComponent"
-      :class="{'text-gray-200': true}" />
+      <KeepAlive>
+        <component
+        :is="currentTabComponent"
+        :class="{'text-gray-200': true}"
+        />
+      </KeepAlive>
     </FadeTransition>
   </main>
 </template>
