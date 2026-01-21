@@ -8,6 +8,18 @@ interface GeneralSettings {
     country: string
 }
 
+interface NotificationsSettings {
+    email: boolean
+    sms: boolean
+}
+
+interface PrivacySettings {
+    visibility: Visibility
+    searchEngineIndexing: boolean
+}
+
+type Visibility = 'public' | 'private'
+
 const general = ref<GeneralSettings>({
     username: '',
     email: '',
@@ -16,8 +28,20 @@ const general = ref<GeneralSettings>({
     country: 'Kazakhstan',
 })
 
-export function useGeneral() {
+const notifications = ref<NotificationsSettings>({
+    email: false,
+    sms: false,
+})
+
+const privacy = ref<PrivacySettings>({
+    visibility: 'public',
+    searchEngineIndexing: false
+})
+
+export function useSettings() {
     return {
-        general
+        general,
+        notifications,
+        privacy
     }
 }

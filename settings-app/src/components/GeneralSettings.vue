@@ -37,8 +37,8 @@
 </template>
 
 <script setup lang="ts">
-import { useGeneral } from "@/composables/useSettings"
+import { useSettings } from "@/composables/useSettings"
 
-const { general } = useGeneral()
+const { general } = useSettings()
 
 </script>
