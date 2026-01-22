@@ -20,6 +20,9 @@
         />
       </KeepAlive>
     </FadeTransition>
+    <Teleport to="body">
+      <NotificationsList />
+    </Teleport>
   </main>
 </template>
 
@@ -31,7 +34,7 @@ import GeneralSettings from "@/components/GeneralSettings.vue"
 import NotificationsSettings from "@/components/NotificationsSettings.vue"
 import PrivacySettings from "@/components/PrivacySettings.vue"
 import FadeTransition from "@/components/FadeTransition.vue"
-
+import NotificationsList from "@/components/NotificationsList.vue"
 
 const tabs: Tab[] = [
   {

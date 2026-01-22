@@ -16,16 +16,22 @@ function addNotification(message: string) {
         message,
         id
     })
+    
+    setTimeout(() => {
+        removeNotification(id)
+    }, 3000)
 }
 
-function removeNNotification(id: number) {
+function removeNotification(id: number) {
     notifications.value = notifications.value.filter(
         n => n.id !== id
     )
 }
 
-function useNotifications() {
+export function useNotifications() {
     return {
-        notifications
+        notifications,
+        addNotification,
+        removeNotification
     }
 }

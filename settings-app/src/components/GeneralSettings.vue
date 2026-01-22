@@ -1,5 +1,5 @@
 <template>
-    <form class="space-y-4 mx-auto">
+    <form class="space-y-4 mx-auto" @submit.prevent="save">
         <div>
             <label>Username</label>
             <input type="text" v-model="general.username">
@@ -38,6 +38,14 @@
 
 <script setup lang="ts">
 import { useSettings } from "@/composables/useSettings"
+import { useNotifications } from "@/composables/useNotifications"
+
+// artificial save functionality for notificaitons
+const { addNotification } = useNotifications()
+function save() {
+    console.log('settings saved')
+    addNotification('General settings saved successfully')
+}
 
 const { general } = useSettings()
 
