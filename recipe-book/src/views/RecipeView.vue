@@ -1,6 +1,8 @@
 <template>
   <div>
     <h1>{{ $route.params.id }}</h1>
+    <h2>{{ recipe?.name }}</h2>
+    <h2>{{ recipe?.description }}</h2>
     <nav>
       <ul>
         <li>
@@ -15,10 +17,18 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
+import { useRecipeStore } from '@/stores/recipe';
+import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
+
+const recipeStore = useRecipeStore();
+
+const recipe = computed(() => {
+  const id = Number(route.params.id);
+  return recipeStore.getRecipeById(id);
+});
 
 watch(
   () => route.params.id,
