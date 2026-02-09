@@ -10,6 +10,7 @@ interface Recipe {
 type RecipeInput = Omit<Recipe, 'id'>;
 
 export const useRecipeStore = defineStore('recipe', () => {
+  
   const recipes = ref<Recipe[]>([]);
 
   const addRecipe = (recipe: RecipeInput) => {
