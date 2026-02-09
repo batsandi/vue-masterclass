@@ -3,6 +3,7 @@
     <h1>{{ $route.params.id }}</h1>
     <h2>{{ recipe?.name }}</h2>
     <h2>{{ recipe?.description }}</h2>
+    <RouterLink :to="{ name: 'edit-recipe', params: { id: $route.params.id } }">Edit</RouterLink>
     <nav>
       <ul>
         <li>

@@ -23,6 +23,13 @@ export const useRecipeStore = defineStore('recipe', () => {
     return newRecipe;
   };
 
+  const updateRecipe = (recipeToUpdate: Recipe) => {
+    const index = recipes.value.findIndex((recipe) => recipe.id === recipeToUpdate.id);
+    if (index !== -1) {
+      recipes.value[index] = recipeToUpdate;
+    }
+  }
+
   const getRecipeById = (id: number) => {
     return recipes.value.find((recipe) => recipe.id === id);
   };
@@ -37,5 +44,5 @@ export const useRecipeStore = defineStore('recipe', () => {
     );
   });
 
-  return { recipes, addRecipe, getRecipeById, searchQuery, filteredRecipes };
+  return { recipes, addRecipe, updateRecipe, getRecipeById, searchQuery, filteredRecipes };
 });
